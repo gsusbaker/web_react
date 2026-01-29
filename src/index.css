@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #050505;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  /* Deep Vaporwave Background */
+  background: radial-gradient(circle at 50% 0%, #1a0b2e 0%, #050505 100%);
+  background-attachment: fixed;
+}
+
+/* 3D Button Push Effect */
+.btn-3d {
+  transition: all 0.1s;
+  position: relative;
+  top: 0;
+}
+
+.btn-3d:active {
+  top: 4px;
+  box-shadow: 0 0 0 0 transparent;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff2a6d;
+  /* Vapor Pink */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7d5fff;
+  /* Vapor Purple */
+}

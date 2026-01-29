@@ -1,0 +1,119 @@
+
+4
+
+Automatic Zoom
+Práctica 10 - Creación de Proyecto
+Web con React
+Tema 12
+Índice
+Introducción..............................................................................................................................2
+Instrucciones para la construcción de la página...................................................................... 2
+Estructura del proyecto...................................................................................................... 2
+Estilos.................................................................................................................................3
+Configuración de rutas....................................................................................................... 3
+Conexión a la API...............................................................................................................3
+Funcionalidad...........................................................................................................................3
+Resumen..................................................................................................................................4
+Entrega.....................................................................................................................................4
+Tutoriales para subir la aplicación...................................................................................... 4
+1
+Introducción
+Te han contratado para diseñar y desarrollar una página web que permita explorar
+videojuegos utilizando la API RAWG. El objetivo principal es crear una plataforma donde los
+usuarios puedan buscar, descubrir y visualizar información detallada sobre videojuegos. Los
+requisitos iniciales son los siguientes:
+1. Una página principal donde se muestren los videojuegos más populares en un slider
+o carrusel.
+2. En la página principal, promociona la funcionalidad principal del sitio, destacando las
+características de la búsqueda de videojuegos y la posibilidad de explorar los títulos
+más destacados.
+3. Una nueva página que permita ver todos los videojuegos disponibles en la API, con
+la funcionalidad de buscar juegos mediante un buscador.
+4. Una página individual para cada videojuego, mostrando información detallada como
+el título, géneros, fecha de lanzamiento, plataformas disponibles y puntuación.
+○ En esta página, también se podrá marcar un juego como favorito.
+○ Puedes añadir toda la información del videojuego que quieras, hay muchos
+más datos que nos da la API.
+5. Aunque no es necesario implementarlo ahora, se recomienda pensar en futuras
+funcionalidades, como mostrar una lista de juegos favoritos o explorar categorías
+específicas.
+Instrucciones para la construcción de la página
+Estructura del proyecto
+Para la construcción de esta página, deberás usar el framework de JavaScript React.
+Puedes ayudarte de npx para la creación del proyecto, pero deberás seguir la siguiente
+estructura de proyecto:
+1. Carpeta src/components: Contendrá los componentes reutilizables de la página,
+como el header, el footer o elementos visuales como las tarjetas de los videojuegos
+u otros elementos.
+2. Carpeta src/pages: Aquí estarán los componentes que representan las diferentes
+páginas de la web.
+3. Carpeta src/services: Contendrá los scripts encargados de gestionar la conexión
+y peticiones con la API RAWG.
+2
+Estilos
+Para la realización del proyecto se da libertad total en el uso de frameworks o tecnologías
+para la creación de los estilos de la página. Pero se recomienda el uso de Tailwind en el
+desarrollo del proyecto.
+Configuración de rutas
+Para la creación de las diferentes rutas de la página se usará react-router, para su fácil
+integración se proporcionará un proyecto de ejemplo adjunto con la tarea, que ayudará a
+estructurar el proyecto en diferentes rutas.
+Conexión a la API
+Para obtener la información sobre los videojuegos, utilizaremos la API RAWG. Es necesario
+investigar la estructura de las peticiones y las respuestas de la API para configurar
+correctamente la obtención de datos.
+La API requiere una clave de autenticación, que puedes conseguir registrándote en su
+página oficial: https://rawg.io/
+A continuación, se proporciona un ejemplo básico de una llamada a la API utilizando fetch:
+fetch('https://api.rawg.io/api/games?key=TU_API_KEY')
+.then((response) => response.json())
+.then((data) => console.log(data))
+.catch((error) => console.error("Error al realizar la solicitud:",
+error));
+Funcionalidad
+1. Carrusel con videojuegos en la página principal. Dichos videojuegos deben
+obtenerse de la API.
+2. Buscador: La funcionalidad principal será buscar videojuegos mediante el buscador
+y mostrar los resultados de la API.
+3. Visualización de videojuegos: Se debe mostrar una lista de juegos con detalles
+básicos como su imagen de fondo, título y calificación.
+4. Vista de detalle: En la página de detalles de un videojuego, se deben mostrar más
+datos, como plataformas, géneros y descripción.
+De momento, no es necesario implementar funcionalidades avanzadas como listas de
+favoritos persistentes. Estas se añadirán en futuras entregas, pero si tienes tiempo, puedes
+adelantar parte de su desarrollo.
+3
+Resumen
+● Buen diseño de la página (3 puntos):
+○ La página debe ser visualmente atractiva y fácil de usar.
+● Separación de la aplicación en componentes (3 puntos):
+○ Usa componentes reutilizables y organiza bien el proyecto.
+● Buen uso de props y states de React (2 puntos):
+○ Maneja correctamente el estado y las propiedades en los componentes.
+● Integración con React Router (1 punto):
+○ Asegúrate de que la navegación entre páginas funcione correctamente.
+● Conexión a la API y manejo de errores (1 punto):
+○ Realiza llamadas a la API de forma eficiente y maneja errores de forma
+adecuada.
+Será esencial el buen diseño de la página para su evaluación. Aquel diseño que no
+cumpla unos requisitos mínimos de buena estructura, uso de colores y presentación
+de elementos de la página, influirá negativamente en el resto de puntos a evaluar de
+la práctica.
+Entrega
+La práctica será un documento PDF con enlace a los siguientes recursos:
+● Un repositorio GitHub público en el que se pueda ver el contenido de tu proyecto.
+● Un enlace a la página subida con Netlify o Vercel. Se aconseja el uso de Netlify o
+Vercel por su facilidad de uso, pero se puede aceptar cualquier otro servicio en el
+que tu web esté subida siempre y cuando tenga acceso a dicha web mediante un
+enlace.
+La entrega será un documento PDF con el siguiente formato:
+Practica10_NombreApellidos.pdf
+Nota. No subir el enlace a Github y otro enlace con acceso a la web mediante Netlify,
+Vercel u otro servicio, hará que la práctica cuente como no evaluable.
+Tutoriales para subir la aplicación
+● Vercel: https://www.youtube.com/watch?v=6P4jr_KMR3I
+● Con fly.io: https://www.youtube.com/watch?v=sugNEJJiwik
+● Con netlify:
+https://www.youtube.com/watch?v=7T4w0QJtL-o&pp=ygUWbmV0bGlmeSByZWFjd
+CBhcHAgdml0ZQ%3D%3D
+4
