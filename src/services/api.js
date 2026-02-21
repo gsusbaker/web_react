@@ -52,4 +52,47 @@ export const getGameDetails = async (id) => {
     }
 };
 
+export const getPublishers = async (query = '', page_size = 20, page = 1) => {
+    try {
+        const response = await api.get('/publishers', {
+            params: {
+                search: query,
+                page_size: page_size,
+                page: page,
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching publishers:", error);
+        throw error;
+    }
+};
+
+export const getPublisherDetails = async (id) => {
+    try {
+        const response = await api.get(`/publishers/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error(`Error fetching publisher ${id} details:`, error);
+        throw error;
+    }
+};
+
+export const getGamesByFilter = async (filterType, filterValue, page_size = 20, page = 1) => {
+    try {
+        // filterType can be 'genres', 'tags', or 'publishers'
+        const response = await api.get('/games', {
+            params: {
+                [filterType]: filterValue,
+                page_size: page_size,
+                page: page,
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(`Error fetching games by ${filterType}:`, error);
+        throw error;
+    }
+};
+
 export default api;

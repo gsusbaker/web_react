@@ -63,8 +63,8 @@ const GameDetail = () => {
                         <button
                             onClick={toggleFavorite}
                             className={`w-full py-4 rounded-xl font-black tracking-widest text-lg transition-all btn-3d shadow-xl ${isFavorite
-                                    ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-[0_0_20px_rgba(239,68,68,0.5)]'
-                                    : 'bg-transparent border-2 border-vapor-purple text-vapor-purple hover:bg-vapor-purple hover:text-white hover:shadow-[0_0_20px_rgba(125,95,255,0.5)]'
+                                ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-[0_0_20px_rgba(239,68,68,0.5)]'
+                                : 'bg-transparent border-2 border-vapor-purple text-vapor-purple hover:bg-vapor-purple hover:text-white hover:shadow-[0_0_20px_rgba(125,95,255,0.5)]'
                                 }`}
                         >
                             {isFavorite ? '♥ ELIMINAR DE FAVORITOS' : '♡ AÑADIR A FAVORITOS'}
@@ -119,9 +119,20 @@ const GameDetail = () => {
                                 <h4 className="font-bold text-vapor-pink mb-2 uppercase tracking-wide">Géneros</h4>
                                 <div className="flex flex-wrap gap-2">
                                     {game.genres?.map((g) => (
-                                        <span key={g.id} className="bg-black/40 px-3 py-1 rounded text-gray-300 border border-white/10 hover:border-vapor-pink/50 transition-colors">
+                                        <Link key={g.id} to={`/games/category/genres/${g.slug}`} className="bg-black/40 px-3 py-1 rounded text-gray-300 border border-white/10 hover:border-vapor-cyan hover:text-vapor-cyan transition-colors">
                                             {g.name}
-                                        </span>
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 className="font-bold text-vapor-pink mb-2 uppercase tracking-wide">Tags</h4>
+                                <div className="flex flex-wrap gap-2">
+                                    {game.tags?.map((t) => (
+                                        <Link key={t.id} to={`/games/category/tags/${t.slug}`} className="bg-black/40 px-3 py-1 rounded text-gray-300 border border-white/10 hover:border-vapor-cyan hover:text-vapor-cyan transition-colors">
+                                            {t.name}
+                                        </Link>
                                     ))}
                                 </div>
                             </div>
@@ -130,14 +141,14 @@ const GameDetail = () => {
                                 <h4 className="font-bold text-vapor-pink mb-2 uppercase tracking-wide">Publicado por</h4>
                                 <div className="flex flex-wrap gap-2">
                                     {game.publishers?.map((p) => (
-                                        <span key={p.id} className="text-white font-medium hover:text-vapor-cyan transition-colors">
+                                        <Link key={p.id} to={`/publisher/${p.id}`} className="text-white font-medium hover:text-vapor-cyan transition-colors">
                                             {p.name}
-                                        </span>
+                                        </Link>
                                     ))}
                                 </div>
                             </div>
 
-                            <div>
+                            <div className="col-span-2">
                                 <h4 className="font-bold text-vapor-pink mb-2 uppercase tracking-wide">Sitio Web</h4>
                                 {game.website ? (
                                     <a href={game.website} target="_blank" rel="noopener noreferrer" className="text-vapor-cyan hover:text-white underline decoration-vapor-cyan/50 hover:decoration-white transition-all break-all">

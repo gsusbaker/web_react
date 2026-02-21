@@ -61,6 +61,10 @@ const Header = () => {
                         Explorar
                         <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-vapor-pink transition-all group-hover:w-full"></span>
                     </Link>
+                    <Link to="/publishers" className="text-gray-400 hover:text-vapor-pink transition-colors relative group">
+                        Distribuidoras
+                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-vapor-pink transition-all group-hover:w-full"></span>
+                    </Link>
 
                     {user ? (
                         <div className="flex items-center gap-4 ml-2">

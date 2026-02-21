@@ -5,6 +5,9 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Games from './pages/Games';
 import GameDetail from './pages/GameDetail';
+import GamesByFilter from './pages/GamesByFilter';
+import Publishers from './pages/Publishers';
+import PublisherDetail from './pages/PublisherDetail';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import './App.css';
@@ -20,6 +23,9 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/games" element={<Games />} />
               <Route path="/game/:id" element={<GameDetail />} />
+              <Route path="/games/category/:type/:slug" element={<GamesByFilter />} />
+              <Route path="/publishers" element={<Publishers />} />
+              <Route path="/publisher/:id" element={<PublisherDetail />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
             </Routes>

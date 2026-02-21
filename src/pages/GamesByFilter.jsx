@@ -1,39 +1,34 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { getPopularGames, searchGames } from '../services/api';
+import { useParams, useSearchParams, Link } from 'react-router-dom';
+import { getGamesByFilter } from '../services/api';
 import GameCard from '../components/GameCard';
 import Pagination from '../components/Pagination';
 
-const Games = () => {
+const GamesByFilter = () => {
+    const { type, slug } = useParams(); // type can be 'genres' or 'tags'
+    const [searchParams, setSearchParams] = useSearchParams();
     const [games, setGames] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [searchParams, setSearchParams] = useSearchParams();
 
-    // Get parameters from URL
-    const searchQuery = searchParams.get('search') || '';
     const page = parseInt(searchParams.get('page')) || 1;
 
     useEffect(() => {
         const fetchGames = async () => {
             setLoading(true);
             try {
-                let data;
-                if (searchQuery) {
-                    data = await searchGames(searchQuery, 20, page);
-                } else {
-                    data = await getPopularGames(20, page);
-                }
+                // The API needs the slug/id for the specific filter
+                const data = await getGamesByFilter(type, slug, 20, page);
                 setGames(data.results);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } catch (error) {
-                console.error("Error fetching games:", error);
+                console.error(`Error fetching games by ${type}:`, error);
             } finally {
                 setLoading(false);
             }
         };
 
         fetchGames();
-    }, [searchQuery, page]);
+    }, [type, slug, page]);
 
     const handlePageChange = (newPage) => {
         const newParams = new URLSearchParams(searchParams);
@@ -43,8 +38,12 @@ const Games = () => {
 
     return (
         <div className="container mx-auto px-4 py-8 pt-24 min-h-screen">
-            <h1 className="text-4xl font-black mb-8 text-white uppercase tracking-wider drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
-                {searchQuery ? `Resultados para "${searchQuery}"` : "Juegos Populares"}
+            <Link to="/games" className="inline-block text-vapor-pink hover:text-white mb-6 uppercase font-bold tracking-widest transition-colors mb-8">
+                ← Volver a Explorar
+            </Link>
+
+            <h1 className="text-4xl font-black mb-8 text-white uppercase tracking-wider">
+                {type === 'genres' ? 'Género' : 'Tag'}: <span className="text-vapor-cyan">{slug.replace(/-/g, ' ')}</span>
             </h1>
 
             {loading ? (
@@ -54,7 +53,7 @@ const Games = () => {
             ) : (
                 <>
                     {games.length === 0 ? (
-                        <p className="text-center text-gray-400 text-xl mt-12">No se encontraron juegos en la base de datos.</p>
+                        <p className="text-center text-gray-400 text-xl mt-12">No se encontraron juegos para esta categoría.</p>
                     ) : (
                         <>
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -75,4 +74,4 @@ const Games = () => {
     );
 };
 
-export default Games;
+export default GamesByFilter;
