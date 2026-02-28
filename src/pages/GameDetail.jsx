@@ -1,38 +1,37 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { getGameDetails } from '../services/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchGameDetails, clearSelectedGame } from '../store/slices/gamesSlice';
+import { toggleFavorite } from '../store/slices/userSlice';
 
 const GameDetail = () => {
     const { id } = useParams();
-    const [game, setGame] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [isFavorite, setIsFavorite] = useState(false);
+    const dispatch = useDispatch();
+    const { selectedGame: game, loading, error } = useSelector((state) => state.games);
+    const { favorites } = useSelector((state) => state.user);
+    const isFavorite = favorites.includes(parseInt(id));
 
     useEffect(() => {
-        const fetchGame = async () => {
-            try {
-                const data = await getGameDetails(id);
-                setGame(data);
-            } catch (error) {
-                console.error("Error loading game details:", error);
-            } finally {
-                setLoading(false);
-            }
+        dispatch(fetchGameDetails(id));
+
+        // Scroll to top
+        window.scrollTo(0, 0);
+
+        return () => {
+            dispatch(clearSelectedGame());
         };
-
-        fetchGame();
-    }, [id]);
-
-    const toggleFavorite = () => {
-        setIsFavorite(!isFavorite);
-    };
+    }, [id, dispatch]);
 
     if (loading) {
-        return <div className="text-center p-10">Loading game data...</div>;
+        return <div className="text-center p-10 py-40 text-vapor-pink animate-pulse font-bold text-2xl">CARGANDO DATOS...</div>;
+    }
+
+    if (error) {
+        return <div className="text-center p-10 py-40 text-red-500 font-bold text-2xl">ERROR: {error}</div>;
     }
 
     if (!game) {
-        return <div className="text-center p-10">Game not found.</div>;
+        return <div className="text-center p-10 py-40 text-gray-400 font-bold text-2xl">Videojuego no encontrado.</div>;
     }
 
     return (
@@ -61,7 +60,7 @@ const GameDetail = () => {
                             />
                         </div>
                         <button
-                            onClick={toggleFavorite}
+                            onClick={() => dispatch(toggleFavorite(parseInt(id)))}
                             className={`w-full py-4 rounded-xl font-black tracking-widest text-lg transition-all btn-3d shadow-xl ${isFavorite
                                 ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-[0_0_20px_rgba(239,68,68,0.5)]'
                                 : 'bg-transparent border-2 border-vapor-purple text-vapor-purple hover:bg-vapor-purple hover:text-white hover:shadow-[0_0_20px_rgba(125,95,255,0.5)]'

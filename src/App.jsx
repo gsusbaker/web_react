@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
+import { Provider } from 'react-redux';
+import { store } from './store';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -8,13 +9,16 @@ import GameDetail from './pages/GameDetail';
 import GamesByFilter from './pages/GamesByFilter';
 import Publishers from './pages/Publishers';
 import PublisherDetail from './pages/PublisherDetail';
+import Events from './pages/Events';
+import Favorites from './pages/Favorites';
+import MyEvents from './pages/MyEvents';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import './App.css';
 
 function App() {
   return (
-    <AuthProvider>
+    <Provider store={store}>
       <BrowserRouter>
         <div className="flex flex-col min-h-screen text-white bg-vapor-bg font-sans selection:bg-vapor-pink selection:text-black">
           <Header />
@@ -26,6 +30,9 @@ function App() {
               <Route path="/games/category/:type/:slug" element={<GamesByFilter />} />
               <Route path="/publishers" element={<Publishers />} />
               <Route path="/publisher/:id" element={<PublisherDetail />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/favorites" element={<Favorites />} />
+              <Route path="/my-events" element={<MyEvents />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
             </Routes>
@@ -33,7 +40,7 @@ function App() {
           <Footer />
         </div>
       </BrowserRouter>
-    </AuthProvider>
+    </Provider>
   );
 }
 

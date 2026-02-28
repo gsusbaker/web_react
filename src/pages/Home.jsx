@@ -1,25 +1,17 @@
-import { useEffect, useState } from 'react';
-import { getPopularGames } from '../services/api';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPopularGames } from '../store/slices/gamesSlice';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
-    const [popularGames, setPopularGames] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch();
+    const { popularGames, loading } = useSelector((state) => state.games);
 
     useEffect(() => {
-        const fetchGames = async () => {
-            try {
-                const data = await getPopularGames(4);
-                setPopularGames(data.results);
-            } catch (error) {
-                console.error("Error loading popular games:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchGames();
-    }, []);
+        if (popularGames.length === 0) {
+            dispatch(fetchPopularGames({ page_size: 4, page: 1 }));
+        }
+    }, [dispatch, popularGames.length]);
 
     if (loading) {
         return <div className="min-h-screen flex items-center justify-center text-vapor-pink font-bold animate-pulse text-xl">CARGANDO SISTEMA...</div>;

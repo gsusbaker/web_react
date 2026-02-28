@@ -1,0 +1,101 @@
+Práctica 12 Redux - Tema 14
+Introducción
+Deberás migrar el proyecto actual que usa los estados de React a uno que use la gestión de
+estados que ofrece Redux Toolkit.
+Para la realización de la práctica se facilitará un proyecto de ejemplo que sirva de idea y
+estructura para la transformación y adaptación de las diferentes funcionalidades de vuestra
+página.
+Indicaciones
+Una vez implementada la estructura y funcionamiento básicos de la anterior práctica en
+Redux, deberás revisar y refinar el proyecto. Se deberá seguir la siguiente estructura:
+● Tener separado las llamadas a las API en un script service.js
+● La gestión de las llamadas a la API se realizará en los Thunks.
+● Tener dos Slices, una para los juegos y otra para los eventos (nueva sección de la
+página).
+Más funcionalidades
+Usuarios
+Se simulará la existencia de un usuario con la sesión ya iniciada en la web. En la navbar
+deberá aparecer un icono que represente al usuario. Desde dicho icono/perfil del usuario se
+tiene que poder acceder a 2 nuevas páginas:
+● Mis Favoritos
+● Mis Eventos
+Favoritos
+Deberás desarrollar la posibilidad de marcar como favorito un juego. Los juegos marcados
+como favoritos deben guardarse en local mediante localStorage, si un juego fue marcado
+como favorito debe poder verse en la misma página del videojuego marcado.
+Nota. Ten en cuenta que está funcionalidad es muy sencilla de implementar, al estar
+ignorando la existencia de una sesión de usuario. Estas acciones no se almacenarán en
+Base de datos o en local, así que la información se perderá al apagar el servidor/borrar
+datos de navegación.
+Recurso útil: https://blog.logrocket.com/using-localstorage-react-hooks/
+2
+Nueva sección
+Para trabajar con diferentes entidades y aprender a gestionarlas con Redux, crearemos una
+nueva página con eventos, donde se listen eventos sobre videojuegos, estos eventos
+deberán tener un título, localización y una imagen.
+Estos elementos tienen que tener la opción de apuntarse a ellos y que el usuario pueda
+verlo. A su vez el usuario también tiene que poder cancelar su participación en ella. Esta
+información debe gestionarse con Redux y con localStorage para guardar los eventos a los
+que se ha apuntado el usuario.
+Estos eventos, al no usar una API externa o base de datos, se crearán en el propio código.
+Se deberá crear una fichero con un elemento que estructuren los eventos.
+Para el código simularemos una llamada a la API de la siguiente manera:
+servicio events
+// events.js
+// Añade o modifica los eventos al gusto
+// Las imágenes pueden ser las que tengas en la carpeta public
+export const events = [
+{
+id: 1,
+title: "Gaming Expo 2025",
+location: "New York",
+image: "gaming_expo.jpg",
+},
+{
+id: 2,
+title: "Indie Game Developers Meetup",
+location: "San Francisco",
+image: "indie_meetup.jpg",
+},
+{
+id: 3,
+title: "Esports Championship",
+location: "Los Angeles",
+image: "esports.jpg",
+},
+];
+// Simula una petición API que devuelve los eventos después de un pequeño retraso.
+export const fetchEvents = () => {
+return new Promise((resolve) => {
+setTimeout(() => {
+resolve(events);
+}, 500); // Simula un retraso de 500 milisegundos
+});
+};
+3
+Resumen
+● Buen uso y separación de la aplicación en componentes y servicios (1 punto)
+● Nueva sección de eventos (2 puntos)
+● Funcionalidad de favoritos (2 puntos)
+● Buen uso e integración de Redux (5 puntos)
+Es importante la subida del proyecto a GitHub y la web para su valoración (mirar siguiente
+apartados)
+Será esencial el buen diseño de la página para su evaluación. Aquel diseño que no
+cumpla unos requisitos mínimos de buena estructura, uso de colores y presentación
+de elementos de la página, influirá negativamente en el resto de puntos a evaluar en
+esta práctica.
+La nota máxima es de 10 puntos, se ofrecen apartados extra pra favorecer aquel que tenga
+problemas con la implementación de redux
+Entrega
+La práctica será un documento PDF con enlace a los siguientes recursos:
+● Un repositorio GitHub público en el que se pueda ver el contenido de tu proyecto.
+● Un enlace a la página subida con Netlify o Vercel. Se aconseja el uso de Netlify o
+Vercel por su facilidad de uso, pero se puede aceptar cualquier otro servicio en el
+que tu web esté subida siempre y cuando tenga acceso a dicha web mediante un
+enlace.
+● Es importante crear una rama donde se pueda apreciar el nombre “redux” y así
+poder ver la implementación del proyecto en GitHub. Ejemplo: app-juegos-redux
+La entrega será un documento PDF con el siguiente formato:
+Practica12_NombreApellidos.pdf
+Nota. No subir el enlace a Github y otro enlace con acceso a la web mediante Netlify,
+Vercel u otro servicio, hará que la práctica cuente como no evaluable.

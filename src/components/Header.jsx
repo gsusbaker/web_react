@@ -1,10 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../store/slices/userSlice';
 
 const Header = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const { user, logout } = useAuth();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { currentUser: user } = useSelector((state) => state.user);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleSearch = (e) => {
@@ -65,13 +68,54 @@ const Header = () => {
                         Distribuidoras
                         <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-vapor-pink transition-all group-hover:w-full"></span>
                     </Link>
+                    <Link to="/events" className="text-gray-400 hover:text-vapor-pink transition-colors relative group">
+                        Eventos
+                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-vapor-pink transition-all group-hover:w-full"></span>
+                    </Link>
 
                     {user ? (
-                        <div className="flex items-center gap-4 ml-2">
-                            <span className="text-vapor-cyan font-normal normal-case">Hola, {user.username}</span>
-                            <button onClick={logout} className="px-4 py-1.5 text-xs font-bold border border-red-500/50 text-red-400 rounded-full hover:bg-red-500 hover:text-white active:scale-95 transition-all">
-                                Salir
+                        <div className="relative">
+                            <button
+                                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                                className="flex items-center gap-2 group focus:outline-none"
+                            >
+                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-vapor-pink to-vapor-purple p-0.5 group-hover:shadow-[0_0_15px_rgba(255,42,109,0.5)] transition-all">
+                                    <div className="w-full h-full rounded-full bg-black flex items-center justify-center text-xl">
+                                        👤
+                                    </div>
+                                </div>
+                                <span className="hidden lg:block text-vapor-cyan font-bold tracking-tight">{user.username}</span>
                             </button>
+
+                            {isMenuOpen && (
+                                <div className="absolute right-0 mt-2 w-48 bg-gray-950 border border-gray-800 rounded-xl shadow-2xl overflow-hidden py-1 z-[60]">
+                                    <Link
+                                        to="/favorites"
+                                        className="block px-4 py-2 text-sm text-gray-300 hover:bg-vapor-pink hover:text-white transition-colors"
+                                        onClick={() => setIsMenuOpen(false)}
+                                    >
+                                        ⭐ Mis Favoritos
+                                    </Link>
+                                    <Link
+                                        to="/my-events"
+                                        className="block px-4 py-2 text-sm text-gray-300 hover:bg-vapor-blue hover:text-white transition-colors"
+                                        onClick={() => setIsMenuOpen(false)}
+                                    >
+                                        📅 Mis Eventos
+                                    </Link>
+                                    <hr className="border-gray-800 my-1" />
+                                    <button
+                                        onClick={() => {
+                                            dispatch(logout());
+                                            setIsMenuOpen(false);
+                                            navigate('/');
+                                        }}
+                                        className="w-full text-left px-4 py-2 text-sm text-red-500 hover:bg-red-500 hover:text-white transition-colors"
+                                    >
+                                        🚪 Cerrar Sesión
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     ) : (
                         <div className="flex items-center gap-3 ml-2">

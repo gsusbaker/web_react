@@ -1,39 +1,29 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { getPopularGames, searchGames } from '../services/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPopularGames, searchGames } from '../store/slices/gamesSlice';
 import GameCard from '../components/GameCard';
 import Pagination from '../components/Pagination';
 
 const Games = () => {
-    const [games, setGames] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch();
+    const { popularGames, searchResults, loading, count } = useSelector((state) => state.games);
     const [searchParams, setSearchParams] = useSearchParams();
 
     // Get parameters from URL
     const searchQuery = searchParams.get('search') || '';
     const page = parseInt(searchParams.get('page')) || 1;
 
-    useEffect(() => {
-        const fetchGames = async () => {
-            setLoading(true);
-            try {
-                let data;
-                if (searchQuery) {
-                    data = await searchGames(searchQuery, 20, page);
-                } else {
-                    data = await getPopularGames(20, page);
-                }
-                setGames(data.results);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } catch (error) {
-                console.error("Error fetching games:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
+    const games = searchQuery ? searchResults : popularGames;
 
-        fetchGames();
-    }, [searchQuery, page]);
+    useEffect(() => {
+        if (searchQuery) {
+            dispatch(searchGames({ query: searchQuery, page_size: 20, page }));
+        } else {
+            dispatch(fetchPopularGames({ page_size: 20, page }));
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [dispatch, searchQuery, page]);
 
     const handlePageChange = (newPage) => {
         const newParams = new URLSearchParams(searchParams);

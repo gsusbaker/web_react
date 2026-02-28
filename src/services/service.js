@@ -10,11 +10,12 @@ const api = axios.create({
     }
 });
 
+// Games API
 export const getPopularGames = async (page_size = 10, page = 1) => {
     try {
         const response = await api.get('/games', {
             params: {
-                ordering: '-added', // Populares
+                ordering: '-added',
                 page_size: page_size,
                 page: page,
             }
@@ -80,7 +81,6 @@ export const getPublisherDetails = async (id) => {
 
 export const getGamesByFilter = async (filterType, filterValue, page_size = 20, page = 1) => {
     try {
-        // filterType can be 'genres', 'tags', or 'publishers'
         const response = await api.get('/games', {
             params: {
                 [filterType]: filterValue,
@@ -93,6 +93,36 @@ export const getGamesByFilter = async (filterType, filterValue, page_size = 20, 
         console.error(`Error fetching games by ${filterType}:`, error);
         throw error;
     }
+};
+
+// Events Mock API
+export const events = [
+    {
+        id: 1,
+        title: "Gaming Expo 2025",
+        location: "New York",
+        image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=800",
+    },
+    {
+        id: 2,
+        title: "Indie Game Developers Meetup",
+        location: "San Francisco",
+        image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=800",
+    },
+    {
+        id: 3,
+        title: "Esports Championship",
+        location: "Los Angeles",
+        image: "https://images.unsplash.com/photo-1542751110-97427bbecf20?auto=format&fit=crop&q=80&w=800",
+    },
+];
+
+export const fetchEvents = () => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(events);
+        }, 500);
+    });
 };
 
 export default api;
