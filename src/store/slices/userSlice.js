@@ -38,9 +38,12 @@ const userSlice = createSlice({
         },
         logout: (state) => {
             state.currentUser = null;
+        },
+        setCurrentUser: (state, action) => {
+            state.currentUser = action.payload;
         }
     }
 });
 
-export const { toggleFavorite, toggleEventAttendance, logout } = userSlice.actions;
+export const { toggleFavorite, toggleEventAttendance, logout, setCurrentUser } = userSlice.actions;
 export default userSlice.reducer;

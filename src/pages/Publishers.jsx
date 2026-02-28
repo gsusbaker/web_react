@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { getPublishers } from '../services/api';
+import { getPublishers } from '../services/service';
 import Pagination from '../components/Pagination';
 
 const Publishers = () => {

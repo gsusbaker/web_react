@@ -1,22 +1,22 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useDispatch } from 'react-redux';
+import { setCurrentUser } from '../store/slices/userSlice';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const { login } = useAuth();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setError('');
 
-        // Use 'admin' as username for simplicity, or treat email as username
-        const usernameInput = email.split('@')[0];
-
-        if (login(usernameInput, password)) {
+        // Mock Login Logic
+        if ((email === 'admin' || email === 'admin@medac.es') && password === '1234') {
+            dispatch(setCurrentUser({ name: 'Admin User', username: 'admin' }));
             navigate('/');
         } else {
             setError('Credenciales inválidas. Prueba: admin / 1234');

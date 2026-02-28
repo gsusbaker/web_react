@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useSearchParams, Link } from 'react-router-dom';
-import { getGamesByFilter } from '../services/api';
+import { getGamesByFilter } from '../services/service';
 import GameCard from '../components/GameCard';
 import Pagination from '../components/Pagination';
 
